@@ -1,0 +1,80 @@
+<h3>Form Data</h3>
+
+<div class="row">
+    <div class="col-7">
+        <div class="card">
+            <div class="card-header">
+                Reactive Form
+            </div>
+            <div [formGroup]="form" class="card-body">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" formControlName="name" class="form-control">
+                    <div *ngIf="showError('name')">
+                        <pre *ngIf="form.get('name')?.errors" class="text-danger mt-2">Name is Required </pre>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select formControlName="category" class="form-control">
+                        <option value="">Select</option>
+                        <option *ngFor="let item of categories" [ngValue]="item.name">{{item.name}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="number" formControlName="price" class="form-control">
+                </div>
+                <fieldset formGroupName="size">
+                    <div class="form-group">
+                        <label for="us">US size</label>
+                        <input type="number" formControlName="us" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="uk">UK size</label>
+                        <input type="number" formControlName="uk" class="form-control">
+                    </div>
+                </fieldset>
+
+                <div class="form-group" formArrayName="color">
+                    <label for="color">Colors</label>
+                    <div class="input-group" *ngFor="let item of color.controls;let i = index ;let l = last" [class.mb-2]="!l">
+                        <input type="text" class="form-control" [formControlName]="i">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-danger btn-sm" (click)="removeColor(i)">Delete</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" formArrayName="properties">
+                    <label for="property">Properties</label>
+                    <div class="form-row" *ngFor="let item of properties.controls; let i = index; let l = last;" [class.mb-2]="!l">
+
+                        <div class="col input-group">
+                            <input type="text" class="form-control" [formControlName]="i">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-danger btn-sm" (click)="removeProperties(i)">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-outline-primary btn-sm mr-2" (click)="addColor()">Add Color</button>
+                    <button class="btn btn-outline-primary btn-sm" (click)="addProperties()">Add Property</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card">
+            <div class="card-header">Form Value</div>
+            <div class="card-body">
+                <pre>{{form.value | json}}</pre>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+<h3>Validations</h3>
+
+<div class="row">
+    <div class="col-7">
+        <div class="card">
+            <div class="card-header">
+                Form
+            </div>
+            <div class="card-body">
+                <div class="form" [formGroup]="form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <div class="input-group">
+                            <input type="text" formControlName="name" class="form-control" placeholder="Enter Name">
+
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                   <i class="fa " [ngClass]="getStatus('name')"></i>
+                                </span>
+
+                            </div>
+                        </div>
+                        <div *ngIf="showError('name')">
+                            <pre *ngIf="form.get('name')?.errors" class="text-danger mt-2">Invalid Name</pre>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <div class="input-group">
+                            <input type="tel" formControlName="phone" class="form-control" placeholder="Enter Phone">
+
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fa " [ngClass]="getStatus('phone')"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div *ngIf="showError('phone')">
+                            <pre *ngIf="form.get('phone')?.errors" class="text-danger mt-2">Invalid Phone</pre>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <div class="input-group">
+                            <input type="email" formControlName="email" class="form-control" placeholder="Enter Email">
+
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                            <i class="fa " [ngClass]="getStatus('email')"></i>
+                          </span>
+                            </div>
+                        </div>
+                        <div *ngIf="showError('email')">
+                            <pre *ngIf="form.get('email')?.errors" class="text-danger mt-2">Invalid Email</pre>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-outline-primary btn-sm mr-2" (click)="form.reset()">
+                          <i class="fa fa-recycle"></i> Clear
+                      </button>
+
+                        <button class="btn btn-outline-success btn-sm" [disabled]="form.invalid" (click)="save()">
+                        <i class="fa fa-save"></i>Save
+                      </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card mb-2">
+            <div class="card-header">Form Value</div>
+            <div class="card-body">
+                <pre>{{form.value | json}}</pre>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Validation Status</div>
+            <div class="card-body">
+                <pre>{{validationStatus | json}}</pre>
+            </div>
+        </div>
+    </div>
+</div>
